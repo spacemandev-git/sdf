@@ -13,6 +13,7 @@ import sys, csv
 import yaml
 from os import listdir
 from os.path import isfile, join
+import shutil
 
 def buildDeck(namespace):
   """Takes in a Deck namespace file and finds the csv file associated with it"""
@@ -65,13 +66,16 @@ def writedecktofile(namespace, deck):
 if __name__ == "__main__":
   #print(sys.argv[1])
   #build deck
+  namespace = sys.argv[1]
   try: 
-    deck = buildDeck(sys.argv[1])
+    deck = buildDeck(namespace)
   except Exception as e:
     print(str(e))
   #write deck to file
   try:
-    writedecktofile(sys.argv[1], deck)
+    writedecktofile(namespace, deck)
   except Exception as e:
     print(str(e))
   #create zip
+  dirpath =  './%s/%s/%s/' % (namespace.split('.')[2], namespace.split('.')[1], namespace.split('.')[0])
+  shutil.make_archive(dirpath, 'zip', dirpath)
