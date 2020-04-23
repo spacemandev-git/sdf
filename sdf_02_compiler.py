@@ -42,8 +42,10 @@ def writedecktofile(namespace, deck):
       raise Exception("Could not find _cardtype or _cardback in the CSV file")
 
     for attr in card.keys():
-      if(attr[0] == "*"):
-        finalCard['assets'][attr] = card[attr]
+      if attr == "_cardtype" or attr == "_cardback":
+        pass
+      elif(attr[0] == "*"):
+        finalCard['assets'][attr[1:]] = card[attr] #ignore the * when dumping
       else:
         finalCard['data'][attr] = card[attr]      
 
