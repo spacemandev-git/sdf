@@ -33,8 +33,8 @@ def writedecktofile(namespace, deck):
     try:
       finalCard = {
         "namespace": cardName + "." + namespace,
-        "data": [],
-        "assets": [], #should have their .jpg/.png/etc
+        "data": {},
+        "assets": {}, #should have their .jpg/.png/etc
         "cardType": card['_cardtype'], #do not need to have .html
         "cardBack": card['_cardback']  #do not need to have .html
       }
@@ -43,9 +43,9 @@ def writedecktofile(namespace, deck):
 
     for attr in card.keys():
       if(attr[0] == "*"):
-        finalCard['assets'].append(attr)
+        finalCard['assets'][attr] = card[attr]
       else:
-        finalCard['data'].append(attr)      
+        finalCard['data'][attr] = card[attr]      
 
     with open(cardPath, 'w+') as file:
       yaml.dump(finalCard, file)
