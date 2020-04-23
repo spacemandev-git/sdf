@@ -54,6 +54,7 @@ _cardtype and _cardback MUST be present as column headings in the csv file and l
 
 &ast; is used to prefix any column headings that denote assets 
 
+all other column headings are treated as data attributes for the card
 
 
 ## SDF Interpreter
