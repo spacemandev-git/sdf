@@ -42,7 +42,7 @@ def writedecktofile(namespace, deck):
       raise Exception("Could not find _cardtype or _cardback in the CSV file")
 
     for attr in card.keys():
-      if attr == "_cardtype" or attr == "_cardback":
+      if attr[0] == "_":
         pass
       elif(attr[0] == "*"):
         finalCard['assets'][attr[1:]] = card[attr] #ignore the * when dumping
@@ -51,7 +51,9 @@ def writedecktofile(namespace, deck):
 
     with open(cardPath, 'w+') as file:
       yaml.dump(finalCard, file)
-    cardList.append(cardName)
+    
+    for i in range(0,int(card['_quantity'])):
+      cardList.append(cardName)
 
   
   #Append to deck meta
