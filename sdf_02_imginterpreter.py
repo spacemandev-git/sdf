@@ -14,9 +14,8 @@ import tempfile
 def loadDeck(fileUrl):
   deckfile = ZipFile(fileUrl)
   #path = os.getcwd().replace('\\','/') + "/temp_dir/"
-  path = tempfile.TemporaryDirectory().name + "/"
+  path = tempfile.TemporaryDirectory().name.replace("\\", "/") + "/"
   
-  #Create a temp dir to 
   deckfile.extractall(path)
   #deckyaml = yaml.load(open(path+'deck.yaml','r'), Loader=yaml.FullLoader)
 
@@ -27,7 +26,6 @@ def loadDeck(fileUrl):
     #Replace asset urls with path
     assetspath = 'file:///' + path + "assets/"
     #assetspath = "assets/"
-    print(assetspath)
     for asset in card['assets']:
       card['assets'][asset] = assetspath + card['assets'][asset]
     
@@ -37,8 +35,9 @@ def loadDeck(fileUrl):
     frontSVG = open(templatepath, 'r').read()
     cardSVG = pystache.render(frontSVG, card)
     
-    outputPath = "deckimgs/"+c+'.png'
-    imgkit.from_string(cardSVG, outputPath)
+    outputPath = "deckimgs/"+c.replace(".yaml", "")+'.png'
+    options = {'width': 600, 'height':450, 'disable-smart-width': ''}
+    imgkit.from_string(cardSVG, outputPath, options=options)
 
 
 if __name__ == "__main__":
