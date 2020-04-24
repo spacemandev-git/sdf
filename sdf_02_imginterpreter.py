@@ -13,9 +13,9 @@ import tempfile
 
 def loadDeck(fileUrl):
   deckfile = ZipFile(fileUrl)
-  path = os.getcwd().replace('\\','/') + "/temp_dir/"
-  #path = tempfile.TemporaryDirectory().name + "/"
-  print(path)
+  #path = os.getcwd().replace('\\','/') + "/temp_dir/"
+  path = tempfile.TemporaryDirectory().name + "/"
+  
   #Create a temp dir to 
   deckfile.extractall(path)
   deckyaml = yaml.load(open(path+'deck.yaml','r'), Loader=yaml.FullLoader)
