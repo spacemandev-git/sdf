@@ -18,10 +18,11 @@ def loadDeck(fileUrl):
   
   #Create a temp dir to 
   deckfile.extractall(path)
-  deckyaml = yaml.load(open(path+'deck.yaml','r'), Loader=yaml.FullLoader)
-  #print(deckyaml)
-  for c in deckyaml['cardlist']:
-    card = yaml.load(open(path+"cards/"+c+".yaml", 'r'), Loader=yaml.FullLoader)
+  #deckyaml = yaml.load(open(path+'deck.yaml','r'), Loader=yaml.FullLoader)
+
+  os.mkdir('deckimgs')
+  for c in os.listdir(path+'/cards/'):
+    card = yaml.load(open(path+"cards/"+c, 'r'), Loader=yaml.FullLoader)
 
     #Replace asset urls with path
     assetspath = 'file:///' + path + "assets/"
@@ -36,7 +37,6 @@ def loadDeck(fileUrl):
     frontSVG = open(templatepath, 'r').read()
     cardSVG = pystache.render(frontSVG, card)
     
-    os.mkdir('deckimgs')
     outputPath = "deckimgs/"+c+'.png'
     imgkit.from_string(cardSVG, outputPath)
 
