@@ -46,11 +46,16 @@ If all it did was pull the name attribute from the data of the card when renderi
 Assets folder holds all the image files used by the card. 
 
 
+## Requirements
+CairoSVG Pystache YAML
+
 ## SDF Compiler
 SDF compiler takes in an decknamespace and looks for the right folder structure and an CSV file. Then it reads the file turning all the entires into yaml files and then zipping up the whole shebang along into a zip file ready to be distributed. 
 
 ### CSV Structure
 _cardtype and _cardback MUST be present as column headings in the csv file and list the name (without .html) of the template used to render the card
+_quantity is used to determine how many copies of the card you want in the deck
+_attributes WILL NOT be added to the card, and are reserved for future meta attributes
 
 &ast; is used to prefix any column headings that denote assets 
 
